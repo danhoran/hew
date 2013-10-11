@@ -46,6 +46,31 @@
     // Public API
     this.VERSION = '0.0.1';
 
+    // [ERROR]: Error-level logging
+    this.error = function() {
+
+    };
+
+    // [WARN]: Warn-level logging
+    this.warn = function() {
+
+    };
+
+    // [INFO]: Info-level logging
+    this.info = function() {
+
+    };
+
+    // [DEBUG]: Debug-level logging
+    this.debug = function() {
+
+    };
+
+    // [TRACE]: Trace-level logging
+    this.trace = function() {
+
+    };
+
     // Intialize application
     initialize(userConfig);
   };
