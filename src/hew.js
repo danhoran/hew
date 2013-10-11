@@ -16,7 +16,11 @@
     var config = {
       key: null,
       format: 'json',
-      endpoint: 'http://hew.io/'
+      endpoints: {
+        screen: true,
+        native: false,
+        url: 'http://hew.io'
+      }
     }
 
     var utils = {
@@ -47,27 +51,27 @@
     this.VERSION = '0.0.1';
 
     // [ERROR]: Error-level logging
-    this.error = function() {
+    this.error = function(message) {
 
     };
 
     // [WARN]: Warn-level logging
-    this.warn = function() {
+    this.warn = function(message) {
 
     };
 
     // [INFO]: Info-level logging
-    this.info = function() {
+    this.info = function(message) {
 
     };
 
     // [DEBUG]: Debug-level logging
-    this.debug = function() {
+    this.debug = function(message) {
 
     };
 
     // [TRACE]: Trace-level logging
-    this.trace = function() {
+    this.trace = function(message) {
 
     };
 
