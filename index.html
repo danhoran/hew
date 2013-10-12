@@ -3,5 +3,14 @@
   <body>
     <h5>working</h5>
     <script src="src/hew.js"></script>
+    <script>
+    function example() {
+      var log = new Hew();
+      log.error('Sample message');
+      log.warn('Sample message');
+      log.error('Sample message {}', {test: true, something: 'else'});
+    };
+    example();
+    </script>
   </body>
 </html>

@@ -30,6 +30,18 @@
         }
         return false;
       },
+      // Returns timestamp object
+      timestamp: function() {
+        var date = new Date(),
+            stamp = {
+              day: date.getUTCDate(),
+              month: date.getUTCMonth() + 1,
+              year: date.getUTCFullYear(),
+              time: date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds(),
+              unix: Math.floor(date.getTime() / 1000)
+            };
+            return '[' + stamp.day + '/' + stamp.month + '/' + stamp.year + ' ' + stamp.time + '] ';
+      },
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
         var property;
@@ -49,7 +61,7 @@
           var i = 0;
           return str.replace(/{([^{}]*)}/g, function (a) {
             i++;
-            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : a;
+            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : JSON.stringify(arr[i-1]);
           });
         }
         return str;
@@ -75,12 +87,13 @@
 
     // Default log method, returns log string
     // To call this method directly use: Hew.custom('event', ['<message>', arg1, arg2]);
-    root.custom = function() {
+    var log = root.custom = function() {
       var argArr = Array.prototype.slice.call(arguments[1], 1),
           interpolated = utils.interpolate(arguments[1][0], argArr),
-          message = interpolated;
+          timestamp = utils.timestamp(),
+          message = timestamp + interpolated;
 
-      // Log to native console API if available else used console.log() as default
+      // Log to native console API if available else use console.log() as default
       if (config.debug === true) {
         if (utils.nativeConsole(arguments[0])) {
           console[arguments[0]](message);
@@ -92,19 +105,19 @@
     };
 
     // [ERROR]: Error-level logging
-    root.error = function() { return root.custom('error', arguments); };
+    root.error = function() { return log('error', arguments); };
 
     // [WARN]: Warn-level logging
-    root.warn = function() { return root.custom('warn', arguments); };
+    root.warn = function() { return log('warn', arguments); };
 
     // [INFO]: Info-level logging
-    root.info = function() { return root.custom('info', arguments); };
+    root.info = function() { return log('info', arguments); };
 
     // [DEBUG]: Debug-level logging
-    root.debug = function() { return root.custom('debug', arguments); };
+    root.debug = function() { return log('debug', arguments); };
 
     // [TRACE]: Trace-level logging
-    root.trace = function() { return root.custom('trace', arguments); };
+    root.trace = function() { return log('trace', arguments); };
 
     // Intialize application
     initialize(userConfig);
