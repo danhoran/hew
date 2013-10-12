@@ -16,9 +16,40 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'dist/hew.min.js': ['src/hew.js', 'src/hew-utils.js', 'src/hew-console.js']  
+          'dist/hew.min.js': ['src/hew.js', 'src/hew-utils.js', 'src/hew-console.js']
         }
       }
+    },
+
+    jshint: {
+      options: {
+        boss: true,
+        browser: true,
+        curly: false,
+        devel: true,
+        eqeqeq: false,
+        eqnull: true,
+        expr: true,
+        evil: true,
+        immed: false,
+        laxcomma: true,
+        newcap: false,
+        noarg: true,
+        node: true,
+        smarttabs: true,
+        sub: true,
+        trailing: true,
+        undef: true,
+        globals: {
+          Hew: true,
+          define: true,
+          require: true
+        }
+      },
+      files: [
+        'Gruntfile.js',
+        'src/*.js'
+      ]
     },
 
     jasmine: {
@@ -31,9 +62,10 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('build', ['clean', 'uglify']);
+  grunt.registerTask('build', ['clean', 'uglify', 'jshint']);
   grunt.registerTask('default', ['build', 'jasmine']);
-}
+};

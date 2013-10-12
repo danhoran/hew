@@ -72,7 +72,7 @@
           message = utils.interpolate(arguments[1][0], argArr);
 
       return message;
-    }
+    };
 
     // [ERROR]: Error-level logging
     root.error = function() { return root.custom('error', arguments); };

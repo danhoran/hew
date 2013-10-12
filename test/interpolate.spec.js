@@ -8,7 +8,7 @@
     });
 
     // Ensure a simple string is returned successfully
-    it('should return a log string', function() {
+    it('should return a simple string', function() {
       var result = log.error('Test String');
       expect(result).toEqual('Test String');
     });
