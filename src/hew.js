@@ -22,6 +22,13 @@
 
     // Private utility methods
     var utils = {
+      // Test for native console API
+      nativeConsole: function(type) {
+        if(console[type]) {
+          return true;
+        }
+        return false;
+      },
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
         var property;
@@ -71,6 +78,14 @@
       var argArr = Array.prototype.slice.call(arguments[1], 1),
           message = utils.interpolate(arguments[1][0], argArr);
 
+      // Log to native console API if available else used console.log() as default
+      if (config.debug === true) {
+        if (utils.nativeConsole(arguments[0])) {
+          console[arguments[0]](message);
+        } else if (console.log) {
+          console.log(message);
+        }
+      }
       return message;
     };
 
