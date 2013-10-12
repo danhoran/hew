@@ -4,7 +4,7 @@
     var log;
 
     beforeEach(function() {
-      log = new Hew();
+      log = new Hew({debug: false});
     });
 
     // Ensure a simple string is returned successfully
@@ -30,6 +30,12 @@
       var result = log.error('Test String {}', {id: 1234});
       expect(result).toBe('Test String {}');
     });
+
+    // Test for custom log support
+    it('should interpolate custom log levels', function() {
+      var result = log.custom('event', ['Test string {}', 1234]);
+      expect(result).toBe('Test string 1234');
+    })
   });
 
 }).call(this);

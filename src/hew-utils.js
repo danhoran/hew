@@ -1,6 +1,6 @@
 function timestamp(format) {
     var date = new Date(),
-        timestamp = {
+        timestamp1 = {
             day: date.getUTCDate(),
             month: date.getUTCMonth() + 1,
             year: date.getUTCFullYear(),
@@ -12,9 +12,9 @@ function timestamp(format) {
     
     timestamp['formattedDate'] = (function(format) {
         if(format === 'mm/dd/yyyy') {
-            return timestamp.month + '/' + timestamp.day + '/' + timestamp.year
+            return timestamp.month + '/' + timestamp.day + '/' + timestamp.year;
         } else {
-            return timestamp.day + '/' + timestamp.month + '/' + timestamp.year
+            return timestamp.day + '/' + timestamp.month + '/' + timestamp.year;
         }
     })(format);
     

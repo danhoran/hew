@@ -13,6 +13,7 @@
     // Root object
     var root = this;
 
+    // Default config
     var config = {
       key: null,
       format: 'json',
@@ -76,7 +77,8 @@
     // To call this method directly use: Hew.custom('event', ['<message>', arg1, arg2]);
     root.custom = function() {
       var argArr = Array.prototype.slice.call(arguments[1], 1),
-          message = utils.interpolate(arguments[1][0], argArr);
+          interpolated = utils.interpolate(arguments[1][0], argArr),
+          message = interpolated;
 
       // Log to native console API if available else used console.log() as default
       if (config.debug === true) {
