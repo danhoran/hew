@@ -42,7 +42,7 @@
               },
               unix: Math.floor(date.getTime() / 1000)
             };
-            return '[' + time.utc.day + '/' + time.utc.month + '/' + time.utc.year + ' ' + time.utc.time + ']';
+            return '[' + time.utc.month + '/' + time.utc.day + '/' + time.utc.year + ' ' + time.utc.time + ']';
       },
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
