@@ -21,6 +21,9 @@
       expect(length).toBe(3);
     });
 
+    it('should detect whether it\'s running in a browser', function() {
+      expect(log.browser).toBe(true);
+    });
   });
 
 }).call(this);

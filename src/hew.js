@@ -50,6 +50,12 @@
     // Public API
     this.VERSION = '0.0.1';
 
+    // Is Hew running in a browser?
+    this.browser = true;
+    if ((typeof module !== 'undefined') && module.exports) {
+      this.browser = false;
+    }
+
     // [ERROR]: Error-level logging
     this.error = function(message) {
 
