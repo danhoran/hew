@@ -40,7 +40,7 @@
               time: date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds(),
               unix: Math.floor(date.getTime() / 1000)
             };
-            return '[' + stamp.day + '/' + stamp.month + '/' + stamp.year + ' ' + stamp.time + '] ';
+            return '[' + stamp.day + '/' + stamp.month + '/' + stamp.year + ' ' + stamp.time + ']';
       },
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
@@ -61,7 +61,7 @@
           var i = 0;
           return str.replace(/{([^{}]*)}/g, function (a) {
             i++;
-            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : JSON.stringify(arr[i-1]);
+            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : JSON.stringify(arr[i-1], null, '\t');
           });
         }
         return str;
@@ -91,7 +91,7 @@
       var argArr = Array.prototype.slice.call(arguments[1], 1),
           interpolated = utils.interpolate(arguments[1][0], argArr),
           timestamp = utils.timestamp(),
-          message = timestamp + interpolated;
+          message = timestamp + ' ' + interpolated;
 
       // Log to native console API if available else use console.log() as default
       if (config.debug === true) {
