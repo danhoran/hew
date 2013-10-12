@@ -36,6 +36,14 @@
           }
         }
         return destination;
+      },
+      // Interpolates a string with string and number types from an array
+      interpolate: function(str, arr) {
+        var i = 0;
+        return str.replace(/{([^{}]*)}/g, function (a) {
+            i++;
+            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : a;
+        });
       }
     };
 
