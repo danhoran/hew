@@ -16,13 +16,11 @@
     var config = {
       key: null,
       format: 'json',
-      endpoints: {
-        screen: true,
-        native: false,
-        url: 'http://hew.io'
-      }
-    }
+      debug: true,
+      endpoint: 'http://hew.io'
+    };
 
+    // Private utility methods
     var utils = {
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
@@ -47,6 +45,14 @@
       }
     };
 
+    // Default log method, returns log string
+    var log = function() {
+      var argArr = Array.prototype.slice.call(arguments[1], 1),
+          message = utils.interpolate(arguments[1][0], argArr);
+
+      return message;
+    }
+
     // Fires up the engine
     // Calls extend on default config
     var initialize = function(options) {
@@ -56,38 +62,28 @@
     };
 
     // Public API
-    this.VERSION = '0.0.1';
+    root.VERSION = '0.0.1';
 
     // Is Hew running in a browser?
-    this.browser = true;
+    root.browser = true;
     if ((typeof module !== 'undefined') && module.exports) {
-      this.browser = false;
+      root.browser = false;
     }
 
     // [ERROR]: Error-level logging
-    this.error = function(message) {
-
-    };
+    root.error = function() { log('error', arguments); };
 
     // [WARN]: Warn-level logging
-    this.warn = function(message) {
-
-    };
+    root.warn = function() { log('warn', arguments); };
 
     // [INFO]: Info-level logging
-    this.info = function(message) {
-
-    };
+    root.info = function() { log('info', arguments); };
 
     // [DEBUG]: Debug-level logging
-    this.debug = function(message) {
-
-    };
+    root.debug = function() { log('debug', arguments); };
 
     // [TRACE]: Trace-level logging
-    this.trace = function(message) {
-
-    };
+    root.trace = function() { log('trace', arguments); };
 
     // Intialize application
     initialize(userConfig);
