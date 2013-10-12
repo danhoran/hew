@@ -4,11 +4,20 @@
     <h5>working</h5>
     <script src="src/hew.js"></script>
     <script>
+    function something() {
+      var obj = {
+        name: 'foo',
+        age: 12
+      }
+      return obj;
+    };
+
     function example() {
       var log = new Hew();
       log.error('Sample message');
       log.warn('Sample message');
       log.error('Sample message {}', {test: true, something: 'else'});
+      log.error(something());
     };
     example();
     </script>

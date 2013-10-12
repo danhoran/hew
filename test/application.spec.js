@@ -21,6 +21,7 @@
       expect(length).toBe(3);
     });
 
+    // Detects whether Hew is running in the browser
     it('should detect whether it\'s running in a browser', function() {
       expect(log.browser).toBe(true);
     });
