@@ -33,14 +33,16 @@
       // Returns timestamp object
       timestamp: function() {
         var date = new Date(),
-            stamp = {
-              day: date.getUTCDate(),
-              month: date.getUTCMonth() + 1,
-              year: date.getUTCFullYear(),
-              time: date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds(),
+            time = {
+              utc: {
+                day: date.getUTCDate(),
+                month: date.getUTCMonth() + 1,
+                year: date.getUTCFullYear(),
+                time: date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds()
+              },
               unix: Math.floor(date.getTime() / 1000)
             };
-            return '[' + stamp.day + '/' + stamp.month + '/' + stamp.year + ' ' + stamp.time + ']';
+            return '[' + time.utc.day + '/' + time.utc.month + '/' + time.utc.year + ' ' + time.utc.time + ']';
       },
       // Extends destination object with source, overwriting values in source
       extend: function(destination, source) {
@@ -57,12 +59,15 @@
       },
       // Interpolates a string with string and number types from an array
       interpolate: function(str, arr) {
-        if (str.indexOf('{') !== -1 && str.indexOf('}') !== -1) {
+        if (typeof str === 'string' && str.indexOf('{') !== -1 && str.indexOf('}') !== -1) {
           var i = 0;
           return str.replace(/{([^{}]*)}/g, function (a) {
             i++;
             return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : JSON.stringify(arr[i-1], null, '\t');
           });
+        }
+        if (typeof str === 'object') {
+          return JSON.stringify(str, null, '\t');
         }
         return str;
       }
