@@ -1,6 +1,6 @@
 (function() {
 
-  describe('The public log methods', function() {
+  describe('The interpolation method', function() {
     var log;
 
     beforeEach(function() {
@@ -15,20 +15,20 @@
 
     // Ensure strings are interpolated
     it('should interpolate a string when parsed string type', function() {
-      var result = log.error('Test String #{}', '2');
-      expect(result).toEqual('Test String #2');
+      var result = log.error('Test String {}', '1234');
+      expect(result).toEqual('Test String 1234');
     });
 
     // Ensure number are interpolated
     it('should interpolate a string when parsed number type', function() {
-      var result = log.error('Test String #{}', 2);
-      expect(result).toEqual('Test String #2');
+      var result = log.error('Test String {}', 1234);
+      expect(result).toEqual('Test String 1234');
     });
 
     // Ensure objects are not valid interpolation arguments
-    it('should throw an error when attempting to interpolate objects', function() {
-      var result = log.error('Test String #{}', {number: 3});
-      expect(result).toThrow();
+    it('not error while interpolating unsupported types', function() {
+      var result = log.error('Test String {}', {id: 1234});
+      expect(result).toBe('Test String {}');
     });
   });
 

@@ -37,21 +37,16 @@
       },
       // Interpolates a string with string and number types from an array
       interpolate: function(str, arr) {
-        var i = 0;
-        return str.replace(/{([^{}]*)}/g, function (a) {
+        if (str.indexOf('{') !== -1 && str.indexOf('}') !== -1) {
+          var i = 0;
+          return str.replace(/{([^{}]*)}/g, function (a) {
             i++;
             return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : a;
-        });
+          });
+        }
+        return str;
       }
     };
-
-    // Default log method, returns log string
-    var log = function() {
-      var argArr = Array.prototype.slice.call(arguments[1], 1),
-          message = utils.interpolate(arguments[1][0], argArr);
-
-      return message;
-    }
 
     // Fires up the engine
     // Calls extend on default config
@@ -70,20 +65,29 @@
       root.browser = false;
     }
 
+    // Default log method, returns log string
+    // To call this method directly use: Hew.custom('event', ['<message>', arg1, arg2]);
+    root.custom = function() {
+      var argArr = Array.prototype.slice.call(arguments[1], 1),
+          message = utils.interpolate(arguments[1][0], argArr);
+
+      return message;
+    }
+
     // [ERROR]: Error-level logging
-    root.error = function() { log('error', arguments); };
+    root.error = function() { return root.custom('error', arguments); };
 
     // [WARN]: Warn-level logging
-    root.warn = function() { log('warn', arguments); };
+    root.warn = function() { return root.custom('warn', arguments); };
 
     // [INFO]: Info-level logging
-    root.info = function() { log('info', arguments); };
+    root.info = function() { return root.custom('info', arguments); };
 
     // [DEBUG]: Debug-level logging
-    root.debug = function() { log('debug', arguments); };
+    root.debug = function() { return root.custom('debug', arguments); };
 
     // [TRACE]: Trace-level logging
-    root.trace = function() { log('trace', arguments); };
+    root.trace = function() { return root.custom('trace', arguments); };
 
     // Intialize application
     initialize(userConfig);
