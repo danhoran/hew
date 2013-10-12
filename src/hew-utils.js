@@ -1,9 +1,22 @@
-// Keep it here for now, until we decide what to do with it
-
-function interpolate(str, arr) {
-    var i = 0;
-    return str.replace(/{([^{}]*)}/g, function (a) {
-        i++;
-        return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : a;
-    });
+function timestamp(format) {
+    var date = new Date(),
+        timestamp = {
+            day: date.getUTCDate(),
+            month: date.getUTCMonth() + 1,
+            year: date.getUTCFullYear(),
+            time: date.getUTCHours() + ':' + date.getUTCMinutes(),
+            unixtimestamp: date.getTime(),
+            timezoneOffset: date.getTimezoneOffset(),
+            fullDate: date,
+        };
+    
+    timestamp['formattedDate'] = (function(format) {
+        if(format === 'mm/dd/yyyy') {
+            return timestamp.month + '/' + timestamp.day + '/' + timestamp.year
+        } else {
+            return timestamp.day + '/' + timestamp.month + '/' + timestamp.year
+        }
+    })(format);
+    
+    return timestamp;
 }
