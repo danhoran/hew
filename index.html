@@ -3,6 +3,7 @@
   <body>
     <h5>working</h5>
     <script src="src/hew.js"></script>
+    <script src="src/hew-console.js"></script>
     <script>
     function something() {
       var obj = {
@@ -13,7 +14,7 @@
     };
 
     function example() {
-      var log = new Hew();
+      window.log = new Hew();
       log.error('Sample message');
       log.warn('Sample message');
       log.error('Sample message {}', {test: true, something: 'else'});

@@ -20,9 +20,6 @@
   "devDependencies": {
     "grunt-contrib-jasmine": "~0.5.2"
   },
-  "scripts": {
-
-  },
   "main": "./hew.js",
   "license": "MIT",
   "engines": "node >=0.10.20",

@@ -21,14 +21,22 @@
       endpoint: 'http://hew.io'
     };
 
+    // If hew-console is available it will be assigned to hewConsole (else undefined)
+    //var hewConsole;
+    //if (HewConsole !== undefined) hewConsole = new HewConsole();
+
     // Private utility methods
     var utils = {
-      // Test for native console API
+      // Test for native console API and shim console if it doesn't exist
       nativeConsole: function(type) {
-        if(console[type]) {
+        if(console[type] && console.shim === undefined) {
           return true;
+        } else {
+          window.console = {
+            shim: true
+          };
+          return false;
         }
-        return false;
       },
       // Returns timestamp object
       timestamp: function() {
@@ -63,7 +71,10 @@
           var i = 0;
           return str.replace(/{([^{}]*)}/g, function (a) {
             i++;
-            return typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number' ? arr[i-1] : JSON.stringify(arr[i-1], null, '\t');
+            if (typeof arr[i-1] === 'string' || typeof arr[i-1] === 'number') {
+              return arr[i-1];
+            }
+            return JSON.stringify(arr[i-1], null, '\t');
           });
         }
         if (typeof str === 'object') {
@@ -96,7 +107,7 @@
       var argArr = Array.prototype.slice.call(arguments[1], 1),
           interpolated = utils.interpolate(arguments[1][0], argArr),
           timestamp = utils.timestamp(),
-          message = timestamp + ' ' + interpolated;
+          message = '[' + arguments[0].toUpperCase() + ']' + timestamp + ' ' + interpolated;
 
       // Log to native console API if available else use console.log() as default
       if (config.debug === true) {
