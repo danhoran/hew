@@ -16,8 +16,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'dist/hew.min.js': ['src/hew.js'],
-          'dist/hew-console.min.js': ['src/hew-console.js']
+          'dist/hew.min.js': ['src/hew.js']
         }
       }
     },

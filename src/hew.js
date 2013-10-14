@@ -15,15 +15,11 @@
 
     // Default config
     var config = {
-      key: null,
+      token: null,
       format: 'json',
       debug: true,
       endpoint: 'http://hew.io'
     };
-
-    // If hew-console is available it will be assigned to hewConsole (else undefined)
-    //var hewConsole;
-    //if (HewConsole !== undefined) hewConsole = new HewConsole();
 
     // Private utility methods
     var utils = {
